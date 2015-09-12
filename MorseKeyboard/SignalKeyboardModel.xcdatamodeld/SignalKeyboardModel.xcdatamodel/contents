@@ -1,4 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="8118.20" systemVersion="14D136" minimumToolsVersion="Xcode 7.0">
-    <elements/>
+    <entity name="Code" representedClassName=".Code" syncable="YES">
+        <attribute name="letter" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="signalSequenceData" optional="YES" attributeType="Binary" syncable="YES"/>
+    </entity>
+    <entity name="SignalKeyboardBundle" representedClassName=".SignalKeyboardBundle" syncable="YES">
+        <attribute name="keyboardName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="language" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="codeList" optional="YES" toMany="YES" minCount="1" deletionRule="Nullify" destinationEntity="Code" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Code" positionX="-126" positionY="-27" width="128" height="73"/>
+        <element name="SignalKeyboardBundle" positionX="-441" positionY="-54" width="128" height="88"/>
+    </elements>
 </model>

@@ -9,7 +9,7 @@
 
 import UIKit
 
-class CodeTableSelectViewDataSource {
+class CodeTableSelectDataSource {
     var codeTableManager: SignalKeyboardManager!
     
     init(tableView: UITableView, codeTableManager: SignalKeyboardManager) {

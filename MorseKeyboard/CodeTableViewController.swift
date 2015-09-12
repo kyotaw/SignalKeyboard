@@ -8,11 +8,9 @@
 
 import UIKit
 
-class JapaneseCodeTableViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
-    
-    var numberOfSection = 5
-    var numberOfItemsInSection = 11
-    var cellSize: CGSize!
+class CodeTableViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
+    var signalKeyboardBundle: SignalKeyboardBundle?
+    var dataSource: CodeTableDataSource!
     
     @IBOutlet weak var collectionView: UICollectionView!
     
@@ -24,79 +22,35 @@ class JapaneseCodeTableViewController: UIViewController, UICollectionViewDelegat
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let view = UINib(nibName: "JapaneseCodeTableView", bundle: nil).instantiateWithOwner(self, options: nil)[0] as! UIView
-        self.inputView?.addSubview(view)
-        
+      
         // Cellに使われるクラスを登録.
+        let codeTableLayout = CodeTableLayout(collectionView: collectionView, signalKeyboardBundle: self.signalKeyboardBundle!)
+
+        self.dataSource = CodeTableDataSource(collectionView: self.collectionView, signalkeyboardBundle: self.signalKeyboardBundle!, codeTableLayout: codeTableLayout)
         
-        self.collectionView.registerClass(CodeCell.self, forCellWithReuseIdentifier: "CodeCellID")
-        
-        //let cellView = UINib(nibName: "CodeCellView", bundle: nil)
-        //self.collectionView.registerNib(cellView, forCellWithReuseIdentifier: "CodeCellID")
-        
-        // Cellに使われるクラスを登録.
         self.collectionView.delegate = self
         self.collectionView.dataSource = self
-        
-        self.cellSize = CGSize()
-        let frame = self.collectionView.bounds
-        let layout = self.collectionView.collectionViewLayout as! UICollectionViewFlowLayout
-        self.cellSize.width = (frame.width - (layout.minimumInteritemSpacing * CGFloat(self.numberOfItemsInSection - 1)) - layout.sectionInset.left - layout.sectionInset.right) / CGFloat(self.numberOfItemsInSection)
-        self.cellSize.height = (frame.height - (layout.sectionInset.top * CGFloat(self.numberOfSection))) / CGFloat(self.numberOfSection)
-        
-    }
-    
-    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        print("Num: \(indexPath.row)")
-    }
-    
-    func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
-        return self.numberOfSection
-    }
-    
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.numberOfItemsInSection
-    }
-    
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        
-        let cell : CodeCell = collectionView.dequeueReusableCellWithReuseIdentifier("CodeCellID", forIndexPath: indexPath) as! CodeCell
-        
-        cell.letterLabel.text = String(indexPath.item)
-        cell.signalLabel.text = "..-"
-        
-        return cell
     }
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-        return self.cellSize
+        return self.dataSource.getCellSize()
     }
     
-    @IBAction func pushReturnButton(sender: AnyObject) {
+    // MARK: UICollectionViewDataSource protocol
+    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return self.dataSource.getNumberOfItemsInSection(section)
+    }
+    
+    func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+        return self.dataSource.getNumberOfSections()
+    }
+    
+    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        return self.dataSource.getCell(self.collectionView, indexPath: indexPath)
+    }
+    
+    @IBAction func pushBackButton(sender: AnyObject) {
         dismissViewControllerAnimated(true, completion: nil)
     }
-}
 
-class CodeCell : UICollectionViewCell{
-
-    var letterLabel: UILabel!
-    var signalLabel: UILabel!
-    
-    required init(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-    }
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        
-        self.letterLabel = UILabel(frame: CGRectMake(0, 0, frame.width, frame.height / 2))
-        self.letterLabel.textAlignment = NSTextAlignment.Center
-        self.letterLabel.backgroundColor = UIColor.whiteColor()
-        self.contentView.addSubview(self.letterLabel!)
-        
-        self.signalLabel = UILabel(frame: CGRectMake(0, frame.height / 2, frame.width, frame.height / 2))
-        self.signalLabel.textAlignment = NSTextAlignment.Center
-        self.signalLabel.backgroundColor = UIColor.whiteColor()
-        self.contentView.addSubview(self.signalLabel!)
-    }
 }

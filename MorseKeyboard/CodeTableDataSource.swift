@@ -6,47 +6,26 @@
 //  Copyright © 2015 渡部郷太. All rights reserved.
 //
 
-let indexTableJa_H: [[String]] = [
-    ["ん", "わ", "ら", "や", "ま", "は", "な", "た", "さ", "か", "あ"],
-    ["", "", "り", "ゐ", "み", "ひ", "に", "ち", "し", "き", "い"],
-    ["", "", "る", "ゆ", "む", "ふ", "ぬ", "つ", "す", "く", "う"],
-    ["", "", "れ", "ゑ", "め", "へ", "ね", "て", "せ", "け", "え"],
-    ["", "を", "ろ", "よ", "も", "ほ", "の", "と", "そ", "こ", "お"]
-]
 
-let indexTableJa_V: [[String]] = [
-    ["ん", "", "", "", ""],
-    ["わ", "", "", "", "を"],
-    ["ら", "り", "る", "れ", "ろ"],
-    ["や", "ゐ", "ゆ", "ゑ", "よ"],
-    ["ま", "み", "む", "め", "も"],
-    ["は", "ひ", "ふ", "へ", "ほ"],
-    ["な", "に", "ぬ", "ね", "の"],
-    ["た", "ち", "つ", "て", "と"],
-    ["さ", "し", "す", "せ", "そ"],
-    ["か", "き", "く", "け", "こ"],
-    ["あ", "い", "う", "え", "お"]
-]
 
 
 
 import UIKit
 
-class CodeTableViewDataSource {
+class CodeTableDataSource {
     let signalKeyboardBundle: SignalKeyboardBundle!
-    let indexTable: [[String]]!
+    let layout: CodeTableLayout!
     
-    init(collectionView: UICollectionView, signalkeyboardBundle: SignalKeyboardBundle) {
+    init(collectionView: UICollectionView, signalkeyboardBundle: SignalKeyboardBundle, codeTableLayout: CodeTableLayout) {
         self.signalKeyboardBundle = signalkeyboardBundle
-        self.indexTable = indexTableJa_V
-        
+        self.layout = codeTableLayout
         collectionView.registerClass(CodeTableCell.self, forCellWithReuseIdentifier: "CodeCellID")
     }
     
     func getCell(collectionView: UICollectionView, indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell : CodeTableCell = collectionView.dequeueReusableCellWithReuseIdentifier("CodeCellID", forIndexPath: indexPath) as! CodeTableCell
         
-        if let code = self.signalKeyboardBundle.getCode(self.indexTable[indexPath.section][indexPath.item]) {
+        if let code = self.signalKeyboardBundle.getCode(self.layout.getLetter(indexPath)) {
             cell.letterLabel.text = code.letter
             
             var rawSignals = String()
@@ -73,12 +52,16 @@ class CodeTableViewDataSource {
         return cell
     }
     
+    func getCellSize() -> CGSize {
+        return self.layout.getCellSize()
+    }
+    
     func getNumberOfSections() -> Int {
-        return self.indexTable.count
+        return self.layout.getNumberOfSections()
     }
     
     func getNumberOfItemsInSection(section: Int) -> Int {
-        return self.indexTable[section].count
+        return self.layout.getNumberOfItemsInSection(section)
     }
 }
 

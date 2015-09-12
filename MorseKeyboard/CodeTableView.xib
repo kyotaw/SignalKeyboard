@@ -2,10 +2,9 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8121.20" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8101.16"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="JapaneseCodeTableViewController" customModule="MorseKeyboard">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CodeTableViewController" customModule="MorseKeyboard">
             <connections>
                 <outlet property="collectionView" destination="A0F-8r-b6t" id="fz1-bL-ezV"/>
                 <outlet property="view" destination="iN0-l3-epB" id="J7C-5h-D3q"/>
@@ -16,37 +15,34 @@
             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eLY-t7-WmB">
-                    <rect key="frame" x="8" y="8" width="30" height="30"/>
+                <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PgM-iu-UH8">
+                    <rect key="frame" x="0.0" y="174" width="30" height="30"/>
                     <state key="normal" title="戻る"/>
                     <connections>
-                        <action selector="pushReturnButton:" destination="-1" eventType="touchUpInside" id="SIa-WA-tAo"/>
+                        <action selector="pushBackButton:" destination="-1" eventType="touchUpInside" id="6sQ-iZ-FbV"/>
                     </connections>
                 </button>
-                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="A0F-8r-b6t">
-                    <rect key="frame" x="8" y="46" width="365" height="175"/>
+                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="A0F-8r-b6t">
+                    <rect key="frame" x="235" y="0.0" width="365" height="175"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="365" id="AsE-uX-SZI"/>
-                        <constraint firstAttribute="height" constant="180" id="ELX-Uj-rau"/>
+                        <constraint firstAttribute="width" constant="365" id="8hT-Jg-pV8"/>
+                        <constraint firstAttribute="height" constant="175" id="U08-Kl-398"/>
                     </constraints>
-                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="2" id="5Zr-u7-VG3">
+                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="5Zr-u7-VG3">
                         <size key="itemSize" width="25" height="25"/>
                         <size key="headerReferenceSize" width="0.0" height="0.0"/>
                         <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                        <inset key="sectionInset" minX="2" minY="2" maxX="2" maxY="0.0"/>
+                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                     </collectionViewFlowLayout>
                 </collectionView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="A0F-8r-b6t" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="4Ay-No-aG3"/>
-                <constraint firstItem="A0F-8r-b6t" firstAttribute="top" secondItem="eLY-t7-WmB" secondAttribute="bottom" constant="8" symbolic="YES" id="ABO-2I-zZt"/>
-                <constraint firstItem="A0F-8r-b6t" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leadingMargin" id="L2H-84-vGm"/>
-                <constraint firstAttribute="trailing" secondItem="A0F-8r-b6t" secondAttribute="trailing" id="LhQ-Wl-q2p"/>
-                <constraint firstItem="A0F-8r-b6t" firstAttribute="leading" secondItem="eLY-t7-WmB" secondAttribute="leading" id="dkB-1c-dF6"/>
-                <constraint firstAttribute="bottom" secondItem="A0F-8r-b6t" secondAttribute="bottom" id="kRs-7m-MeE"/>
-                <constraint firstItem="A0F-8r-b6t" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="46" id="ufT-4T-cOn"/>
+                <constraint firstItem="A0F-8r-b6t" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="1ka-1l-gC0"/>
+                <constraint firstAttribute="bottom" secondItem="PgM-iu-UH8" secondAttribute="bottom" id="7Cw-bk-xAF"/>
+                <constraint firstAttribute="trailing" secondItem="A0F-8r-b6t" secondAttribute="trailing" id="EPp-X9-Tyi"/>
             </constraints>
+            <point key="canvasLocation" x="223" y="264"/>
         </view>
     </objects>
 </document>

@@ -6,4 +6,21 @@
 //  Copyright © 2015 渡部郷太. All rights reserved.
 //
 
-import Foundation
+import UIKit
+
+class TextDisplay{
+    var textDocumentProxy: UITextDocumentProxy!
+    
+    init(textDocumentProxy: UITextDocumentProxy){
+        self.textDocumentProxy = textDocumentProxy
+    }
+    
+    func insertText(text: String){
+        self.textDocumentProxy.insertText(text)
+    }
+    
+    func deleteBackward(){
+        self.textDocumentProxy.deleteBackward()
+    }
+    
+}
